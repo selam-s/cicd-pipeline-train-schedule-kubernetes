@@ -17,3 +17,16 @@ phases:
 artifacts:
   files:
     - '**/*'
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      kubectl: 1.30 
+    commands:
+      - echo "Connecting to EKS Cluster"
+      - aws eks --region us-west-2 update-kubeconfig --name my-cluster
+  build:
+    commands:
+      - echo "Deploying to EKS"
+      - kubectl apply -f k8s-manifest.yaml  
